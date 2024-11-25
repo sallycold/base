@@ -231,9 +231,33 @@ DELIMITER ;
 INSERT INTO Alumnos (idAlumnos, nombre, apellido, curso, IdOrientacion) VALUES (9, 'Sofia', 'Martinez', 2, 1);
 INSERT INTO Alumnos (idAlumnos, nombre, apellido, curso, IdOrientacion) VALUES (10, 'Lara', 'Caceres', 2, 2);
  SELECT * FROM LogAlumnos;
+
+
+-- Otra forma de hacer lo mismo pero sin tabla 
+DELIMITER //
+CREATE PROCEDURE registrar_nombre_duplica()
+BEGIN
+    DECLARE nombre_duplicado VARCHAR(255);
+
+    -- Generar los mensajes de los nombres duplicados
+    SELECT 
+        CONCAT('El alumno ', nombre, ' ', apellido, ' aparece ', COUNT(*), ' veces.') INTO nombre_duplicado
+    FROM Alumnos
+    GROUP BY nombre, apellido
+    HAVING COUNT(*) > 1;
+
+    -- Usar la variable de usuario
+    SELECT nombre_duplicado;
+END //
+DELIMITER ;
+
+CALL registrar_nombre_duplica();
+
+
+
+
+
 --
-
-
 DELIMITER //
 CREATE PROCEDURE listar_alumnos_con_orientacion(
     IN p_idOrientacion INT
