@@ -153,6 +153,11 @@ select c.curso, p.nombre as Profesor, p.apellido as Apellido_Profesor
 from Curso c
 left join Profe p on c.idCurso = p.grado_asig;
 
+-- 
+select c.curso, p.nombre as Profesor, p.apellido as Apellido_Profesor
+from Curso c
+right join Profe p on c.idCurso = p.grado_asig;
+
 -- cuenta cantidades de profesores en cada curso
 select c.curso, COUNT(p.idProfesor) as Total_Profesores
 from profe p
@@ -228,6 +233,20 @@ INSERT INTO Alumnos (idAlumnos, nombre, apellido, curso, IdOrientacion) VALUES (
  SELECT * FROM LogAlumnos;
 --
 
+
+DELIMITER //
+CREATE PROCEDURE listar_alumnos_con_orientacion(
+    IN p_idOrientacion INT
+)
+BEGIN
+    SELECT a.nombre, a.apellido, o.nombre AS orientacion
+    FROM Alumnos a
+    JOIN Orientacion o ON a.idOrientacion = o.idOrientacion
+    WHERE a.idOrientacion = p_idOrientacion;
+END //
+DELIMITER ;
+CALL listar_alumnos_con_orientacion(2);
+CALL listar_alumnos_con_orientacion(1);
 
 --
 CREATE TABLE LogNombresDuplicado (
