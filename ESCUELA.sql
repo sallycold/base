@@ -315,3 +315,4 @@ SELECT p.idProfesor, p.nombre AS NombreProfesor, p.apellido AS ApellidoProfesor,
 FROM Profe p
 RIGHT JOIN Materias m ON p.materia = m.idMateria;
 
+https://1drv.ms/p/c/b4d23e0ca9aaa66d/Edaxh36e81lJsf_voxF_e2sBXhrUoM4Z23DrN6NMWae1aw
